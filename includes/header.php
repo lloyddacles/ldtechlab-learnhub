@@ -17,6 +17,7 @@
                 <li><a href="/mysql">MySQL Lessons</a></li>
                 <li><a href="/dbms">DBMS Lessons</a></li>
                 <li><a href="/dsa">DSA Lessons</a></li>
+                <li><a href="/logic">Logic</a></li>
             </ul>
         </div>
     </nav>

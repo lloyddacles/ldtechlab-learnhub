@@ -62,6 +62,17 @@ if (preg_match('#^/dsa/(\d+)-(.*?)$#', $uri, $matches)) {
     }
 }
 
+// Route Programming Logic lessons
+if (preg_match('#^/logic/(\d+)-(.*?)$#', $uri, $matches)) {
+    $num = $matches[1];
+    $slug = $matches[2];
+    $file = __DIR__ . '/../programming-logic/' . str_pad($num, 2, '0', STR_PAD_LEFT) . '-' . $slug . '.php';
+    if (file_exists($file)) {
+        require $file;
+        return true;
+    }
+}
+
 // Route sandbox execution
 if ($uri === '/sandbox/execute.php') {
     require __DIR__ . '/../sandbox/execute.php';
@@ -95,6 +106,12 @@ if ($uri === '/dbms' || $uri === '/dbms/' || $uri === '/dbms-lessons' || $uri ==
 // DSA Lesson listing
 if ($uri === '/dsa' || $uri === '/dsa/' || $uri === '/dsa-lessons' || $uri === '/dsa-lessons/') {
     require __DIR__ . '/../dsa-lessons/index.php';
+    return true;
+}
+
+// Programming Logic Lesson listing
+if ($uri === '/logic' || $uri === '/logic/' || $uri === '/programming-logic' || $uri === '/programming-logic/') {
+    require __DIR__ . '/../programming-logic/index.php';
     return true;
 }
 

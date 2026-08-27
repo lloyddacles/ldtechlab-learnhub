@@ -75,6 +75,9 @@ function lessonUrl(int $num, string $slug, string $dir = 'lessons'): string {
     if ($dir === 'dsa-lessons') {
         return "/dsa/$num-$slug";
     }
+    if ($dir === 'programming-logic') {
+        return "/logic/$num-$slug";
+    }
     return "/lesson/$num-$slug";
 }
 

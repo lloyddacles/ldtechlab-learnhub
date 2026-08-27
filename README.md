@@ -1,6 +1,6 @@
 # LD TechLab Programming Tutorials
 
-An interactive, offline programming tutorial for beginners. Learn PHP, MySQL, DBMS theory, and Data Structures & Algorithms through 48 hands-on lessons with live code examples.
+An interactive, offline programming tutorial for beginners. Learn PHP, MySQL, DBMS theory, programming logic, and Data Structures & Algorithms through 60 hands-on lessons with live code examples.
 
 Created by **Mr. Lloyd Christopher F. Dacles, MIS**
 
@@ -31,6 +31,7 @@ Then open **http://localhost:8000** in your browser.
 
 ## Features
 
+- **12 Programming Logic Lessons** — how to think like a programmer, problem-solving, debugging
 - **12 DSA Lessons** — data structures & algorithms with PHP implementations
 - **10 DBMS Theory Lessons** — database design, normalization, ER diagrams, transactions, security
 - **10 MySQL Lessons** — SQL from basics to PHP integration
@@ -38,6 +39,23 @@ Then open **http://localhost:8000** in your browser.
 - **Syntax Highlighting** — all code examples are color-coded
 - **Fully Offline** — no internet connection required
 - **Portable** — copy the folder to any computer with PHP installed
+
+## Programming Logic Lessons
+
+| # | Topic |
+|---|-------|
+| 1 | What is Programming Logic? |
+| 2 | Computational Thinking |
+| 3 | Flowcharts & Pseudocode |
+| 4 | Sequential Thinking |
+| 5 | Conditional Logic |
+| 6 | Loop Thinking |
+| 7 | Functions & Modularity |
+| 8 | Thinking About Data |
+| 9 | Debugging Thinking |
+| 10 | Algorithmic Thinking |
+| 11 | Pattern Recognition & Abstraction |
+| 12 | A Problem-Solving Framework |
 
 ## Data Structures & Algorithms Lessons
 
