@@ -1,0 +1,104 @@
+<?php
+/**
+ * Router Script for PHP Built-in Server
+ * Handles clean URLs and routes requests to appropriate files.
+ */
+
+$uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+
+// Block path traversal attempts
+if (strpos($uri, '..') !== false) {
+    http_response_code(400);
+    echo '<!DOCTYPE html><html><head><title>400</title></head><body><h1>Bad Request</h1></body></html>';
+    return true;
+}
+
+// Serve static files directly
+if ($uri !== '/' && file_exists(__DIR__ . $uri)) {
+    return false;
+}
+
+// Route PHP lessons
+if (preg_match('#^/lesson/(\d+)-(.*?)$#', $uri, $matches)) {
+    $num = $matches[1];
+    $slug = $matches[2];
+    $file = __DIR__ . '/../lessons/' . str_pad($num, 2, '0', STR_PAD_LEFT) . '-' . $slug . '.php';
+    if (file_exists($file)) {
+        require $file;
+        return true;
+    }
+}
+
+// Route MySQL lessons
+if (preg_match('#^/mysql/(\d+)-(.*?)$#', $uri, $matches)) {
+    $num = $matches[1];
+    $slug = $matches[2];
+    $file = __DIR__ . '/../mysql-lessons/' . str_pad($num, 2, '0', STR_PAD_LEFT) . '-' . $slug . '.php';
+    if (file_exists($file)) {
+        require $file;
+        return true;
+    }
+}
+
+// Route DBMS lessons
+if (preg_match('#^/dbms/(\d+)-(.*?)$#', $uri, $matches)) {
+    $num = $matches[1];
+    $slug = $matches[2];
+    $file = __DIR__ . '/../dbms-lessons/' . str_pad($num, 2, '0', STR_PAD_LEFT) . '-' . $slug . '.php';
+    if (file_exists($file)) {
+        require $file;
+        return true;
+    }
+}
+
+// Route DSA lessons
+if (preg_match('#^/dsa/(\d+)-(.*?)$#', $uri, $matches)) {
+    $num = $matches[1];
+    $slug = $matches[2];
+    $file = __DIR__ . '/../dsa-lessons/' . str_pad($num, 2, '0', STR_PAD_LEFT) . '-' . $slug . '.php';
+    if (file_exists($file)) {
+        require $file;
+        return true;
+    }
+}
+
+// Route sandbox execution
+if ($uri === '/sandbox/execute.php') {
+    require __DIR__ . '/../sandbox/execute.php';
+    return true;
+}
+
+// Home page
+if ($uri === '/' || $uri === '/index.php') {
+    require __DIR__ . '/index.php';
+    return true;
+}
+
+// PHP Lesson listing
+if ($uri === '/lessons' || $uri === '/lessons/' || $uri === '/php' || $uri === '/php/') {
+    require __DIR__ . '/../lessons/index.php';
+    return true;
+}
+
+// MySQL Lesson listing
+if ($uri === '/mysql' || $uri === '/mysql/' || $uri === '/mysql-lessons' || $uri === '/mysql-lessons/') {
+    require __DIR__ . '/../mysql-lessons/index.php';
+    return true;
+}
+
+// DBMS Lesson listing
+if ($uri === '/dbms' || $uri === '/dbms/' || $uri === '/dbms-lessons' || $uri === '/dbms-lessons/') {
+    require __DIR__ . '/../dbms-lessons/index.php';
+    return true;
+}
+
+// DSA Lesson listing
+if ($uri === '/dsa' || $uri === '/dsa/' || $uri === '/dsa-lessons' || $uri === '/dsa-lessons/') {
+    require __DIR__ . '/../dsa-lessons/index.php';
+    return true;
+}
+
+// 404
+http_response_code(404);
+echo '<!DOCTYPE html><html><head><title>404</title></head><body><h1>Page Not Found</h1><p><a href="/">Go Home</a></p></body></html>';
+return true;
