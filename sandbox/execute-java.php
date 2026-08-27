@@ -17,6 +17,13 @@ if (empty($javac) || empty($java)) {
     exit;
 }
 
+// Verify Java actually works (not just a stub)
+$javaCheck = trim(shell_exec('java -version 2>&1') ?? '');
+if (strpos($javaCheck, 'Unable to locate') !== false || strpos($javaCheck, 'not found') !== false || empty($javaCheck)) {
+    echo json_encode(['error' => 'Java runtime not available. The java binary exists but no JDK is installed. Please install a JDK (e.g., OpenJDK 17+) to run Java code.']);
+    exit;
+}
+
 $tmpDir = sys_get_temp_dir() . '/php-tutorial-java-sandbox';
 if (!is_dir($tmpDir)) { mkdir($tmpDir, 0700, true); }
 
