@@ -78,6 +78,12 @@ function lessonUrl(int $num, string $slug, string $dir = 'lessons'): string {
     if ($dir === 'programming-logic') {
         return "/logic/$num-$slug";
     }
+    if ($dir === 'python-lessons') {
+        return "/python/$num-$slug";
+    }
+    if ($dir === 'java-lessons') {
+        return "/java/$num-$slug";
+    }
     return "/lesson/$num-$slug";
 }
 

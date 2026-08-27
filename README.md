@@ -1,6 +1,6 @@
 # LD TechLab Programming Tutorials
 
-An interactive, offline programming tutorial for beginners. Learn PHP, MySQL, DBMS theory, programming logic, and Data Structures & Algorithms through 60 hands-on lessons with live code examples.
+An interactive, offline programming tutorial for beginners. Learn PHP, Python, Java, MySQL, DBMS theory, programming logic, and Data Structures & Algorithms through 84 hands-on lessons with live code examples.
 
 Created by **Mr. Lloyd Christopher F. Dacles, MIS**
 
@@ -32,6 +32,8 @@ Then open **http://localhost:8000** in your browser.
 ## Features
 
 - **12 Programming Logic Lessons** — how to think like a programmer, problem-solving, debugging
+- **12 Python Lessons** — interactive Python with live code execution
+- **12 Java Lessons** — interactive Java with live code execution
 - **12 DSA Lessons** — data structures & algorithms with PHP implementations
 - **10 DBMS Theory Lessons** — database design, normalization, ER diagrams, transactions, security
 - **10 MySQL Lessons** — SQL from basics to PHP integration
@@ -56,6 +58,40 @@ Then open **http://localhost:8000** in your browser.
 | 10 | Algorithmic Thinking |
 | 11 | Pattern Recognition & Abstraction |
 | 12 | A Problem-Solving Framework |
+
+## Python Lessons
+
+| # | Topic |
+|---|-------|
+| 1 | Introduction to Python |
+| 2 | Python Syntax Basics |
+| 3 | Variables & Data Types |
+| 4 | Python Operators |
+| 5 | Conditional Statements |
+| 6 | Loop Statements |
+| 7 | Lists & Tuples |
+| 8 | Dictionaries & Sets |
+| 9 | String Mastery |
+| 10 | Functions |
+| 11 | Object-Oriented Programming |
+| 12 | File Handling & Error Handling |
+
+## Java Lessons
+
+| # | Topic |
+|---|-------|
+| 1 | Introduction to Java |
+| 2 | Java Syntax Basics |
+| 3 | Variables & Data Types |
+| 4 | Java Operators |
+| 5 | Conditional Statements |
+| 6 | Loop Statements |
+| 7 | Arrays & Strings |
+| 8 | Methods |
+| 9 | Object-Oriented Programming |
+| 10 | Inheritance & Polymorphism |
+| 11 | Collections & Generics |
+| 12 | File Handling & Exception Handling |
 
 ## Data Structures & Algorithms Lessons
 

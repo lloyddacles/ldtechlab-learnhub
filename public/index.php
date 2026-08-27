@@ -8,9 +8,11 @@ require_once __DIR__ . '/../includes/header.php';
 <section class="hero">
     <div class="container">
         <h1>LD TechLab Programming Tutorials</h1>
-        <p>Interactive PHP, MySQL &amp; DBMS lessons with live code execution. Learn by doing.</p>
+        <p>Interactive PHP, Python, Java, MySQL &amp; DBMS lessons with live code execution. Learn by doing.</p>
         <div class="hero-buttons">
             <a href="/programming-logic/" class="btn btn-outline-light">Programming Logic</a>
+            <a href="/python-lessons/" class="btn btn-outline-light">Python</a>
+            <a href="/java-lessons/" class="btn btn-outline-light">Java</a>
             <a href="/dbms-lessons/" class="btn btn-outline-light">DBMS Theory</a>
             <a href="/dsa-lessons/" class="btn btn-outline-light">DSA</a>
             <a href="/mysql-lessons/" class="btn btn-outline-light">MySQL</a>
@@ -88,6 +90,42 @@ require_once __DIR__ . '/../includes/header.php';
     </div>
     <div class="text-center mt-4">
         <a href="/mysql-lessons/" class="btn btn-primary">View All MySQL Lessons</a>
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Python Tutorials</h2>
+        <p>Interactive Python lessons with live code execution - edit and run code in your browser!</p>
+    </div>
+    <div class="lessons-grid">
+        <?php foreach (getLessons('python-lessons') as $lesson): ?>
+            <a href="<?= lessonUrl($lesson['num'], $lesson['slug'], 'python-lessons') ?>" class="lesson-card">
+                <span class="lesson-card-number">Lesson <?= $lesson['num'] ?></span>
+                <h3 class="lesson-card-title"><?= htmlspecialchars($lesson['title']) ?></h3>
+            </a>
+        <?php endforeach; ?>
+    </div>
+    <div class="text-center mt-4">
+        <a href="/python-lessons/" class="btn btn-primary">View All Python Lessons</a>
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Java Tutorials</h2>
+        <p>Interactive Java lessons with live code execution - edit and run code in your browser!</p>
+    </div>
+    <div class="lessons-grid">
+        <?php foreach (getLessons('java-lessons') as $lesson): ?>
+            <a href="<?= lessonUrl($lesson['num'], $lesson['slug'], 'java-lessons') ?>" class="lesson-card">
+                <span class="lesson-card-number">Lesson <?= $lesson['num'] ?></span>
+                <h3 class="lesson-card-title"><?= htmlspecialchars($lesson['title']) ?></h3>
+            </a>
+        <?php endforeach; ?>
+    </div>
+    <div class="text-center mt-4">
+        <a href="/java-lessons/" class="btn btn-primary">View All Java Lessons</a>
     </div>
 </section>
 

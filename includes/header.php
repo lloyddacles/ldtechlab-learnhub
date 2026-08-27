@@ -18,6 +18,8 @@
                 <li><a href="/dbms">DBMS Lessons</a></li>
                 <li><a href="/dsa">DSA Lessons</a></li>
                 <li><a href="/logic">Logic</a></li>
+                <li><a href="/python">Python</a></li>
+                <li><a href="/java">Java</a></li>
             </ul>
         </div>
     </nav>

@@ -73,9 +73,39 @@ if (preg_match('#^/logic/(\d+)-(.*?)$#', $uri, $matches)) {
     }
 }
 
+// Route Python lessons
+if (preg_match('#^/python/(\d+)-(.*?)$#', $uri, $matches)) {
+    $num = $matches[1];
+    $slug = $matches[2];
+    $file = __DIR__ . '/../python-lessons/' . str_pad($num, 2, '0', STR_PAD_LEFT) . '-' . $slug . '.php';
+    if (file_exists($file)) {
+        require $file;
+        return true;
+    }
+}
+
+// Route Java lessons
+if (preg_match('#^/java/(\d+)-(.*?)$#', $uri, $matches)) {
+    $num = $matches[1];
+    $slug = $matches[2];
+    $file = __DIR__ . '/../java-lessons/' . str_pad($num, 2, '0', STR_PAD_LEFT) . '-' . $slug . '.php';
+    if (file_exists($file)) {
+        require $file;
+        return true;
+    }
+}
+
 // Route sandbox execution
 if ($uri === '/sandbox/execute.php') {
     require __DIR__ . '/../sandbox/execute.php';
+    return true;
+}
+if ($uri === '/sandbox/execute-python.php') {
+    require __DIR__ . '/../sandbox/execute-python.php';
+    return true;
+}
+if ($uri === '/sandbox/execute-java.php') {
+    require __DIR__ . '/../sandbox/execute-java.php';
     return true;
 }
 
@@ -112,6 +142,18 @@ if ($uri === '/dsa' || $uri === '/dsa/' || $uri === '/dsa-lessons' || $uri === '
 // Programming Logic Lesson listing
 if ($uri === '/logic' || $uri === '/logic/' || $uri === '/programming-logic' || $uri === '/programming-logic/') {
     require __DIR__ . '/../programming-logic/index.php';
+    return true;
+}
+
+// Python Lesson listing
+if ($uri === '/python' || $uri === '/python/' || $uri === '/python-lessons' || $uri === '/python-lessons/') {
+    require __DIR__ . '/../python-lessons/index.php';
+    return true;
+}
+
+// Java Lesson listing
+if ($uri === '/java' || $uri === '/java/' || $uri === '/java-lessons' || $uri === '/java-lessons/') {
+    require __DIR__ . '/../java-lessons/index.php';
     return true;
 }
 

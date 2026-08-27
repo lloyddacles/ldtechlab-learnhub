@@ -66,10 +66,112 @@ document.addEventListener('DOMContentLoaded', function () {
         return escaped;
     }
 
+    function highlightPython(code) {
+        let escaped = code
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+
+        // Multi-line strings (triple quotes)
+        escaped = escaped.replace(/("""[\s\S]*?"""|'''[\s\S]*?''')/g, '<span class="code-string">$1</span>');
+
+        // Comments
+        escaped = escaped.replace(/(#[^\n]*)/g, '<span class="code-comment">$1</span>');
+
+        // Strings
+        escaped = escaped.replace(/(f?"(?:[^"\\]|\\.)*"|f?'(?:[^'\\]|\\.)*')/g, '<span class="code-string">$1</span>');
+
+        // Decorators
+        escaped = escaped.replace(/(@\w+)/g, '<span class="code-keyword">$1</span>');
+
+        // Keywords
+        const keywords = [
+            'False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await',
+            'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except',
+            'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is',
+            'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return',
+            'try', 'while', 'with', 'yield'
+        ];
+        const kwRegex = new RegExp('\\b(' + keywords.join('|') + ')\\b', 'g');
+        escaped = escaped.replace(kwRegex, '<span class="code-keyword">$1</span>');
+
+        // Built-in functions
+        const builtins = [
+            'print', 'len', 'range', 'int', 'float', 'str', 'list', 'dict',
+            'set', 'tuple', 'input', 'open', 'type', 'isinstance', 'enumerate',
+            'zip', 'map', 'filter', 'sorted', 'sum', 'min', 'max', 'abs',
+            'round', 'format', 'super', 'property', 'staticmethod', 'classmethod'
+        ];
+        const biRegex = new RegExp('\\b(' + builtins.join('|') + ')\\b', 'g');
+        escaped = escaped.replace(biRegex, '<span class="code-constant">$1</span>');
+
+        // Numbers
+        escaped = escaped.replace(/\b(\d+\.?\d*)\b/g, '<span class="code-number">$1</span>');
+
+        return escaped;
+    }
+
+    function highlightJava(code) {
+        let escaped = code
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+
+        // Multi-line comments
+        escaped = escaped.replace(/(\/\*[\s\S]*?\*\/)/g, '<span class="code-comment">$1</span>');
+
+        // Single-line comments
+        escaped = escaped.replace(/(\/\/[^\n]*)/g, '<span class="code-comment">$1</span>');
+
+        // Strings
+        escaped = escaped.replace(/("(?:[^"\\]|\\.)*")/g, '<span class="code-string">$1</span>');
+
+        // Chars
+        escaped = escaped.replace(/('(?:[^'\\]|\\.)*')/g, '<span class="code-string">$1</span>');
+
+        // Annotations
+        escaped = escaped.replace(/(@\w+)/g, '<span class="code-keyword">$1</span>');
+
+        // Keywords
+        const keywords = [
+            'abstract', 'assert', 'boolean', 'break', 'byte', 'case', 'catch',
+            'char', 'class', 'const', 'continue', 'default', 'do', 'double',
+            'else', 'enum', 'extends', 'final', 'finally', 'float', 'for',
+            'goto', 'if', 'implements', 'import', 'instanceof', 'int',
+            'interface', 'long', 'native', 'new', 'package', 'private',
+            'protected', 'public', 'return', 'short', 'static', 'strictfp',
+            'super', 'switch', 'synchronized', 'this', 'throw', 'throws',
+            'transient', 'try', 'void', 'volatile', 'while', 'var', 'record',
+            'sealed', 'permits', 'yield'
+        ];
+        const kwRegex = new RegExp('\\b(' + keywords.join('|') + ')\\b', 'g');
+        escaped = escaped.replace(kwRegex, '<span class="code-keyword">$1</span>');
+
+        // Types
+        const types = ['String', 'System', 'Scanner', 'Math', 'Integer', 'Double', 'Boolean', 'ArrayList', 'HashMap', 'Object'];
+        const typeRegex = new RegExp('\\b(' + types.join('|') + ')\\b', 'g');
+        escaped = escaped.replace(typeRegex, '<span class="code-constant">$1</span>');
+
+        // Constants
+        escaped = escaped.replace(/\b(true|false|null)\b/g, '<span class="code-constant">$1</span>');
+
+        // Numbers
+        escaped = escaped.replace(/\b(\d+\.?\d*[fFlL]?)\b/g, '<span class="code-number">$1</span>');
+
+        return escaped;
+    }
+
     // Apply highlighting to all <pre><code> blocks
     document.querySelectorAll('pre code').forEach(function (block) {
         const raw = block.textContent;
-        block.innerHTML = highlightPHP(raw);
+        const lang = block.getAttribute('data-lang') || 'php';
+        if (lang === 'python') {
+            block.innerHTML = highlightPython(raw);
+        } else if (lang === 'java') {
+            block.innerHTML = highlightJava(raw);
+        } else {
+            block.innerHTML = highlightPHP(raw);
+        }
     });
 
     // === Sandbox Code Execution ===
@@ -80,6 +182,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const outputContent = resultDiv ? resultDiv.querySelector('.output-content') : null;
 
         if (!textarea || !runBtn || !resultDiv) return;
+
+        // Detect language from data-lang attribute
+        const lang = textarea.getAttribute('data-lang') || 'php';
+        const sandboxEndpoints = {
+            'php': '/sandbox/execute.php',
+            'python': '/sandbox/execute-python.php',
+            'java': '/sandbox/execute-java.php'
+        };
+        const endpoint = sandboxEndpoints[lang] || sandboxEndpoints['php'];
 
         // Pre-fill with example code if provided (base64-encoded)
         const exampleCode = textarea.getAttribute('data-example');
@@ -106,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
             outputContent.className = 'output-content';
             outputContent.textContent = 'Executing...';
 
-            fetch('/sandbox/execute.php', {
+            fetch(endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: 'code=' + encodeURIComponent(code)
