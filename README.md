@@ -6,28 +6,31 @@ Created by **Mr. Lloyd Christopher F. Dacles, MIS**
 
 ## Requirements
 
-- **PHP 7.4** or higher
+- **PHP 7.4** or higher (auto-installed by setup script if missing)
 - A modern web browser (Chrome, Firefox, Edge, Safari)
-- No internet connection needed
+- No internet connection needed (after setup)
 
 ## Quick Start
 
-### Mac / Linux
+### First Time Setup (installs PHP if missing)
 ```bash
-./start-server.sh
+./setup.sh        # macOS / Linux
+setup.bat          # Windows (double-click)
 ```
 
-### Windows
-```
-Double-click start-server.bat
-```
-
-### Manual
+### Start Server
 ```bash
-php -S localhost:8000 -t public public/router.php
+./start-server.sh  # macOS / Linux
+start-server.bat   # Windows (double-click)
 ```
 
 Then open **http://localhost:8000** in your browser.
+
+### What the setup does
+- Checks for PHP, Python 3, and Java JDK
+- Downloads and bundles PHP if not found
+- Reports which sandboxes are available
+- Start script auto-opens your browser
 
 ## Features
 
@@ -38,9 +41,12 @@ Then open **http://localhost:8000** in your browser.
 - **10 DBMS Theory Lessons** — database design, normalization, ER diagrams, transactions, security
 - **10 MySQL Lessons** — SQL from basics to PHP integration
 - **16 Interactive PHP Lessons** with a live "Try It Yourself" code editor
-- **Syntax Highlighting** — all code examples are color-coded
+- **Syntax Highlighting** — PHP, Python, and Java code examples are color-coded
 - **Fully Offline** — no internet connection required
-- **Portable** — copy the folder to any computer with PHP installed
+- **Portable** — copy the folder to any computer, run setup + start script
+- **Bundled PHP** — PHP binary included, no pre-installation needed
+- **Smart Setup** — auto-downloads dependencies, checks system status
+- **System Status Page** — check which sandboxes are available at `/status`
 
 ## Programming Logic Lessons
 
@@ -163,13 +169,27 @@ Then open **http://localhost:8000** in your browser.
 
 ## Transferring to Another Computer
 
-1. Copy the entire folder to the new computer
-2. Make sure PHP 7.4+ is installed (`php -v` to check)
+1. Copy the entire folder to the new computer (or download from GitHub)
+2. Run `./setup.sh` (Mac/Linux) or `setup.bat` (Windows) — installs PHP if missing
 3. Run `./start-server.sh` (Mac/Linux) or `start-server.bat` (Windows)
 4. Open `http://localhost:8000`
 
+## Sandboxes
+
+Each language sandbox requires its runtime to be installed:
+
+| Language | Requirement | Install Command |
+|----------|-------------|-----------------|
+| PHP | Bundled (no install needed) | — |
+| Python 3 | `python3` in PATH | `brew install python3` |
+| Java | JDK 17+ | `brew install openjdk@17` |
+
+Check status at **http://localhost:8000/status**
+
 ## Troubleshooting
 
-- **"php: command not found"** — PHP is not installed or not in your PATH
+- **"php: command not found"** — Run `./setup.sh` to auto-install PHP
+- **Python sandbox not working** — Install Python: `brew install python3`
+- **Java sandbox not working** — Install JDK: `brew install openjdk@17`
 - **Port 8000 already in use** — change the port in `start-server.sh` / `start-server.bat`
-- **Blank page** — check that PHP is working: `php -v`
+- **Blank page** — check that PHP is working: `./bin/php -v`

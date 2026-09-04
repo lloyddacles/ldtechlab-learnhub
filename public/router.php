@@ -115,6 +115,12 @@ if ($uri === '/' || $uri === '/index.php') {
     return true;
 }
 
+// Status page
+if ($uri === '/status' || $uri === '/status.php') {
+    require __DIR__ . '/status.php';
+    return true;
+}
+
 // PHP Lesson listing
 if ($uri === '/lessons' || $uri === '/lessons/' || $uri === '/php' || $uri === '/php/') {
     require __DIR__ . '/../lessons/index.php';
